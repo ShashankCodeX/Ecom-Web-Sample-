@@ -1,0 +1,51 @@
+<svg width="680" height="520" viewBox="0 0 680 520" xmlns="http://www.w3.org/2000/svg">
+<rect width="680" height="520" fill="#080808"/>
+<defs>
+  <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#e8c97a"/>
+    <stop offset="50%" stop-color="#c9a84c"/>
+    <stop offset="100%" stop-color="#9a7a2e"/>
+  </linearGradient>
+  <linearGradient id="goldH" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0%" stop-color="#9a7a2e"/>
+    <stop offset="50%" stop-color="#e8c97a"/>
+    <stop offset="100%" stop-color="#9a7a2e"/>
+  </linearGradient>
+</defs>
+<circle cx="340" cy="220" r="148" fill="none" stroke="#c9a84c" stroke-width="0.5" opacity="0.3"/>
+<circle cx="340" cy="220" r="142" fill="none" stroke="#c9a84c" stroke-width="0.3" opacity="0.2"/>
+<rect x="252" y="258" width="176" height="14" rx="2" fill="url(#goldH)"/>
+<polygon points="260,258 272,180 284,258" fill="url(#gold)" opacity="0.95"/>
+<polygon points="296,258 308,198 320,258" fill="url(#gold)"/>
+<polygon points="318,258 340,155 362,258" fill="url(#gold)"/>
+<polygon points="360,258 372,198 384,258" fill="url(#gold)"/>
+<polygon points="396,258 408,180 420,258" fill="url(#gold)" opacity="0.95"/>
+<polygon points="272,268 279,260 286,268 279,276" fill="#080808" stroke="#c9a84c" stroke-width="0.8"/>
+<polygon points="308,268 315,260 322,268 315,276" fill="#080808" stroke="#c9a84c" stroke-width="0.8"/>
+<polygon points="340,268 347,260 354,268 347,276" fill="#e8c97a" opacity="0.9"/>
+<polygon points="372,268 379,260 386,268 379,276" fill="#080808" stroke="#c9a84c" stroke-width="0.8"/>
+<polygon points="406,268 413,260 420,268 413,276" fill="#080808" stroke="#c9a84c" stroke-width="0.8"/>
+<circle cx="340" cy="148" r="10" fill="#080808" stroke="#e8c97a" stroke-width="1.5"/>
+<circle cx="340" cy="148" r="5" fill="#e8c97a" opacity="0.9"/>
+<circle cx="272" cy="174" r="6" fill="#080808" stroke="#c9a84c" stroke-width="1"/>
+<circle cx="272" cy="174" r="3" fill="#c9a84c" opacity="0.7"/>
+<circle cx="408" cy="174" r="6" fill="#080808" stroke="#c9a84c" stroke-width="1"/>
+<circle cx="408" cy="174" r="3" fill="#c9a84c" opacity="0.7"/>
+<path d="M230,230 Q210,220 218,200 Q226,185 240,195 Q228,200 232,215 Z" fill="#c9a84c" opacity="0.6"/>
+<path d="M450,230 Q470,220 462,200 Q454,185 440,195 Q452,200 448,215 Z" fill="#c9a84c" opacity="0.6"/>
+<line x1="160" y1="300" x2="294" y2="300" stroke="url(#goldH)" stroke-width="0.8" opacity="0.7"/>
+<line x1="386" y1="300" x2="520" y2="300" stroke="url(#goldH)" stroke-width="0.8" opacity="0.7"/>
+<polygon points="340,294 347,300 340,306 333,300" fill="#c9a84c"/>
+<text x="340" y="345" text-anchor="middle" font-family="Georgia, serif" font-size="42" font-weight="300" letter-spacing="18" fill="url(#goldH)">NOIR VEIL</text>
+<text x="340" y="375" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="300" letter-spacing="6" fill="#7a6330">LUXURY · INDIA · EST. 2025</text>
+<circle cx="290" cy="400" r="1.5" fill="#c9a84c" opacity="0.5"/>
+<circle cx="310" cy="400" r="1.5" fill="#c9a84c" opacity="0.5"/>
+<circle cx="330" cy="400" r="1.5" fill="#c9a84c" opacity="0.5"/>
+<circle cx="350" cy="400" r="1.5" fill="#c9a84c" opacity="0.5"/>
+<circle cx="370" cy="400" r="1.5" fill="#c9a84c" opacity="0.5"/>
+<circle cx="390" cy="400" r="1.5" fill="#c9a84c" opacity="0.5"/>
+<path d="M60,60 L60,80 M60,60 L80,60" stroke="#c9a84c" stroke-width="0.8" fill="none" opacity="0.4"/>
+<path d="M620,60 L620,80 M620,60 L600,60" stroke="#c9a84c" stroke-width="0.8" fill="none" opacity="0.4"/>
+<path d="M60,460 L60,440 M60,460 L80,460" stroke="#c9a84c" stroke-width="0.8" fill="none" opacity="0.4"/>
+<path d="M620,460 L620,440 M620,460 L600,460" stroke="#c9a84c" stroke-width="0.8" fill="none" opacity="0.4"/>
+</svg>

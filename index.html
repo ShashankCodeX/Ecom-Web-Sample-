@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOIR VEIL — Luxury Fashion</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--black:#080808;--deep:#0f0f0f;--card:#141414;--gold:#c9a84c;--gold-light:#e8c97a;--gold-dim:#7a6330;--white:#f0ece4;--muted:#6b6560;--border:rgba(201,168,76,0.18)}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:'Montserrat',sans-serif;font-weight:300;cursor:none;overflow-x:hidden}
+.cursor{width:8px;height:8px;background:var(--gold);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999}
+.cursor-ring{width:32px;height:32px;border:1px solid rgba(201,168,76,0.5);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transition:transform 0.4s ease}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:28px 60px;background:linear-gradient(to bottom,rgba(8,8,8,0.95),transparent)}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;letter-spacing:.35em;color:var(--gold);text-decoration:none}
+.nav-links{display:flex;gap:40px;list-style:none}
+.nav-links a{font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--white);text-decoration:none;opacity:.7;transition:opacity .3s,color .3s}
+.nav-links a:hover{opacity:1;color:var(--gold)}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:0 60px;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 70% 50%,rgba(201,168,76,.04) 0%,transparent 70%),radial-gradient(ellipse 40% 40% at 80% 20%,rgba(201,168,76,.06) 0%,transparent 60%)}
+.hero-line{position:absolute;right:60px;top:50%;transform:translateY(-50%);width:1px;height:40vh;background:linear-gradient(to bottom,transparent,var(--gold-dim),transparent);opacity:.4}
+.hero-eyebrow{font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:28px;animation:fadeUp 1s ease both}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(64px,10vw,130px);font-weight:300;line-height:.9;letter-spacing:-.01em;margin-bottom:32px;animation:fadeUp 1s .15s ease both}
+.hero-title em{font-style:italic;color:var(--gold)}
+.hero-sub{font-size:11px;letter-spacing:.2em;color:var(--muted);max-width:340px;line-height:2;margin-bottom:52px;animation:fadeUp 1s .3s ease both}
+.hero-cta{display:flex;gap:20px;align-items:center;animation:fadeUp 1s .45s ease both}
+.btn-primary{display:inline-block;padding:16px 44px;background:var(--gold);color:var(--black);font-size:10px;letter-spacing:.3em;text-transform:uppercase;font-weight:500;text-decoration:none;transition:background .3s,transform .2s}
+.btn-primary:hover{background:var(--gold-light);transform:translateY(-1px)}
+.btn-ghost{font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--white);text-decoration:none;opacity:.6;border-bottom:1px solid rgba(240,236,228,.3);padding-bottom:2px;transition:opacity .3s,border-color .3s,color .3s}
+.btn-ghost:hover{opacity:1;border-color:var(--gold);color:var(--gold)}
+.hero-scroll{position:absolute;bottom:40px;left:60px;display:flex;align-items:center;gap:16px;font-size:9px;letter-spacing:.35em;text-transform:uppercase;color:var(--muted);animation:fadeUp 1s .6s ease both}
+.scroll-line{width:40px;height:1px;background:var(--gold-dim);position:relative;overflow:hidden}
+.scroll-line::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:var(--gold);animation:scrollLine 2s 1s ease-in-out infinite}
+.marquee-wrap{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:18px 0;overflow:hidden;background:var(--deep)}
+.marquee-track{display:flex;gap:60px;white-space:nowrap;animation:marquee 22s linear infinite}
+.marquee-item{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-dim);flex-shrink:0}
+.marquee-dot{display:inline-block;width:4px;height:4px;background:var(--gold);border-radius:50%;margin:0 30px;vertical-align:middle}
+section{padding:120px 60px}
+.section-label{font-size:9px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:60px;display:flex;align-items:center;gap:20px}
+.section-label::after{content:'';flex:0 0 40px;height:1px;background:var(--gold-dim)}
+.products{background:var(--deep)}
+.products-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:60px}
+.products-title{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,5vw,64px);font-weight:300;line-height:1.05}
+.products-title em{font-style:italic;color:var(--gold)}
+.products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.product-card{background:var(--card);position:relative;overflow:hidden}
+.product-card:first-child{grid-row:span 2}
+.product-img{aspect-ratio:3/4;background:#1a1a1a;position:relative;overflow:hidden}
+.product-card:first-child .product-img{height:100%;aspect-ratio:unset}
+.product-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease}
+.product-card:hover .product-img img{transform:scale(1.04)}
+.product-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,8,.9) 0%,transparent 50%);opacity:0;transition:opacity .4s;display:flex;align-items:flex-end;padding:24px}
+.product-card:hover .product-overlay{opacity:1}
+.product-add{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold);padding:10px 24px;background:transparent;cursor:pointer;transition:background .3s,color .3s;width:100%}
+.product-add:hover{background:var(--gold);color:var(--black)}
+.product-info{padding:20px 24px}
+.product-tag{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:8px}
+.product-name{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;margin-bottom:8px}
+.product-price{font-size:12px;letter-spacing:.1em;color:var(--gold)}
+.product-price span{color:var(--muted);text-decoration:line-through;margin-right:8px;font-size:11px}
+.about-inner{display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center}
+.about-visual{position:relative;aspect-ratio:4/5;background:var(--card)}
+.about-visual-inner{position:absolute;inset:20px 20px -20px -20px;border:1px solid var(--border);background:repeating-linear-gradient(-45deg,#111 0px,#111 1px,#141414 1px,#141414 24px);display:flex;align-items:center;justify-content:center}
+.about-monogram{font-family:'Cormorant Garamond',serif;font-size:120px;font-weight:300;font-style:italic;color:rgba(201,168,76,.1);letter-spacing:-.05em}
+.about-gold-line{position:absolute;bottom:-20px;right:-20px;width:60px;height:3px;background:var(--gold)}
+.about-eyebrow{font-size:9px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);margin-bottom:24px}
+.about-title{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4vw,54px);font-weight:300;line-height:1.1;margin-bottom:28px}
+.about-title em{font-style:italic;color:var(--gold)}
+.about-text{font-size:12px;line-height:2.2;color:var(--muted);margin-bottom:20px}
+.about-stats{display:flex;gap:40px;margin-top:48px;padding-top:40px;border-top:1px solid var(--border)}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:300;color:var(--gold);line-height:1}
+.stat-label{font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+.contact{background:var(--deep)}
+.contact-inner{display:grid;grid-template-columns:1fr 1fr;gap:100px}
+.contact-title{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,5vw,72px);font-weight:300;line-height:1.05;margin-bottom:20px}
+.contact-title em{font-style:italic;color:var(--gold)}
+.contact-sub{font-size:11px;line-height:2;color:var(--muted);margin-bottom:40px}
+.whatsapp-btn{display:inline-flex;align-items:center;gap:14px;padding:18px 36px;border:1px solid var(--gold);color:var(--gold);text-decoration:none;font-size:10px;letter-spacing:.3em;text-transform:uppercase;transition:background .3s,color .3s}
+.whatsapp-btn:hover{background:var(--gold);color:var(--black)}
+.wa-icon{width:18px;height:18px}
+.contact-form{display:flex;flex-direction:column;gap:0}
+.form-field{position:relative;border-bottom:1px solid var(--border);margin-bottom:32px}
+.form-field input,.form-field textarea{width:100%;background:transparent;border:none;outline:none;color:var(--white);font-family:'Montserrat',sans-serif;font-size:13px;font-weight:300;padding:16px 0 12px;resize:none}
+.form-field textarea{height:80px}
+.form-field label{position:absolute;top:16px;left:0;font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);pointer-events:none;transition:top .3s,font-size .3s,color .3s}
+.form-field input:focus~label,.form-field input:not(:placeholder-shown)~label,.form-field textarea:focus~label,.form-field textarea:not(:placeholder-shown)~label{top:-2px;font-size:8px;color:var(--gold)}
+.form-field::after{content:'';position:absolute;bottom:-1px;left:0;width:0;height:1px;background:var(--gold);transition:width .4s}
+.form-field:focus-within::after{width:100%}
+.form-submit{padding:16px 44px;background:var(--gold);color:var(--black);border:none;font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:.3em;text-transform:uppercase;font-weight:500;cursor:pointer;align-self:flex-start;transition:background .3s,transform .2s}
+.form-submit:hover{background:var(--gold-light);transform:translateY(-1px)}
+footer{padding:40px 60px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.footer-logo{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;letter-spacing:.35em;color:var(--gold)}
+.footer-copy{font-size:9px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase}
+.footer-links{display:flex;gap:32px}
+.footer-links a{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .3s}
+.footer-links a:hover{color:var(--gold)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes scrollLine{from{left:-100%}to{left:100%}}
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .8s ease,transform .8s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* WhatsApp order modal */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:200;align-items:center;justify-content:center}
+.modal-bg.open{display:flex}
+.modal{background:var(--deep);border:1px solid var(--border);padding:40px;max-width:440px;width:90%;position:relative}
+.modal-close{position:absolute;top:16px;right:20px;background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;line-height:1}
+.modal-close:hover{color:var(--gold)}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;margin-bottom:6px}
+.modal-title em{font-style:italic;color:var(--gold)}
+.modal-product{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:24px}
+.size-row{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+.size-btn{padding:8px 18px;border:1px solid var(--border);background:transparent;color:var(--white);font-family:'Montserrat',sans-serif;font-size:11px;cursor:pointer;transition:border-color .2s,background .2s}
+.size-btn:hover,.size-btn.active{border-color:var(--gold);background:rgba(201,168,76,.1);color:var(--gold)}
+.modal-wa{display:flex;align-items:center;gap:12px;width:100%;padding:16px 24px;background:var(--gold);color:var(--black);border:none;font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:.3em;text-transform:uppercase;font-weight:500;cursor:pointer;transition:background .3s;justify-content:center;text-decoration:none}
+.modal-wa:hover{background:var(--gold-light)}
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- ORDER MODAL -->
+<div class="modal-bg" id="modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <p class="modal-product" id="modal-tag">Signature Piece</p>
+    <h2 class="modal-title" id="modal-name">The <em>Obsidian</em> Coat</h2>
+    <p style="font-size:11px;color:var(--muted);margin-bottom:16px;letter-spacing:.05em">Select your size:</p>
+    <div class="size-row">
+      <button class="size-btn" onclick="selectSize(this)">XS</button>
+      <button class="size-btn" onclick="selectSize(this)">S</button>
+      <button class="size-btn" onclick="selectSize(this)">M</button>
+      <button class="size-btn" onclick="selectSize(this)">L</button>
+      <button class="size-btn" onclick="selectSize(this)">XL</button>
+      <button class="size-btn" onclick="selectSize(this)">XXL</button>
+    </div>
+    <a class="modal-wa" id="modal-wa-btn" href="#" target="_blank">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Order on WhatsApp
+    </a>
+    <p style="font-size:10px;color:var(--muted);text-align:center;margin-top:14px;letter-spacing:.05em">We'll confirm & send UPI payment link within 1 hour</p>
+  </div>
+</div>
+
+<nav>
+  <a href="#" class="nav-logo">NOIR VEIL</a>
+  <ul class="nav-links">
+    <li><a href="#products">Collection</a></li>
+    <li><a href="#about">Atelier</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-line"></div>
+  <p class="hero-eyebrow">New Collection — 2025</p>
+  <h1 class="hero-title">Dressed<br>in <em>Shadow,</em><br>Crowned<br>in Gold.</h1>
+  <p class="hero-sub">Where darkness meets desire. Luxury fashion for those who refuse to be ordinary.</p>
+  <div class="hero-cta">
+    <a href="#products" class="btn-primary">Explore Collection</a>
+    <a href="#about" class="btn-ghost">Our Story</a>
+  </div>
+  <div class="hero-scroll"><div class="scroll-line"></div>Scroll to explore</div>
+</section>
+
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">Noir Veil</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Luxury Ready-to-Wear</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Handcrafted Excellence</span><span class="marquee-dot"></span>
+    <span class="marquee-item">New Delhi · Mumbai · Lucknow</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Noir Veil</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Luxury Ready-to-Wear</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Handcrafted Excellence</span><span class="marquee-dot"></span>
+    <span class="marquee-item">New Delhi · Mumbai · Lucknow</span><span class="marquee-dot"></span>
+  </div>
+</div>
+
+<section class="products" id="products">
+  <div class="section-label">The Collection</div>
+  <div class="products-header reveal">
+    <h2 class="products-title">New<br><em>Arrivals</em></h2>
+    <a href="#contact" class="btn-ghost">View All Pieces</a>
+  </div>
+  <div class="products-grid reveal">
+
+    <div class="product-card">
+      <div class="product-img">
+        <img src="coat.jpg" alt="The Obsidian Coat">
+        <div class="product-overlay">
+          <button class="product-add" onclick="openModal('The Obsidian Coat','Signature Piece','₹19,999','coat')">Order This Piece</button>
+        </div>
+      </div>
+      <div class="product-info">
+        <p class="product-tag">Signature Piece</p>
+        <h3 class="product-name">The Obsidian Coat</h3>
+        <p class="product-price"><span>₹24,999</span>₹19,999</p>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">
+        <img src="blazer.jpg" alt="Velvet Noir Blazer">
+        <div class="product-overlay">
+          <button class="product-add" onclick="openModal('Velvet Noir Blazer','New Arrival','₹14,999','blazer')">Order This Piece</button>
+        </div>
+      </div>
+      <div class="product-info">
+        <p class="product-tag">New Arrival</p>
+        <h3 class="product-name">Velvet Noir Blazer</h3>
+        <p class="product-price">₹14,999</p>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">
+        <img src="kurta.jpg" alt="Shadow Silk Kurta">
+        <div class="product-overlay">
+          <button class="product-add" onclick="openModal('Shadow Silk Kurta','Limited Edition','₹9,999','kurta')">Order This Piece</button>
+        </div>
+      </div>
+      <div class="product-info">
+        <p class="product-tag">Limited Edition</p>
+        <h3 class="product-name">Shadow Silk Kurta</h3>
+        <p class="product-price"><span>₹12,499</span>₹9,999</p>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">
+        <img src="sherwani.jpg" alt="Gold Crest Sherwani">
+        <div class="product-overlay">
+          <button class="product-add" onclick="openModal('Gold Crest Sherwani','Bestseller','₹32,999','sherwani')">Order This Piece</button>
+        </div>
+      </div>
+      <div class="product-info">
+        <p class="product-tag">Bestseller</p>
+        <h3 class="product-name">Gold Crest Sherwani</h3>
+        <p class="product-price">₹32,999</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="about">
+  <div class="section-label">Our Atelier</div>
+  <div class="about-inner">
+    <div class="about-visual reveal">
+     <div class="about-visual-inner" style="background:#080808;">
+  <img src="noir-veil-logo.svg" 
+       style="width:85%;height:85%;object-fit:contain;">
+</div>
+      <div class="about-gold-line"></div>
+    </div>
+    <div class="reveal">
+      <p class="about-eyebrow">Est. 2020 — India</p>
+      <h2 class="about-title">Born from<br><em>Shadow.</em><br>Built for<br>Legends.</h2>
+      <p class="about-text">Noir Veil was born from a single obsession — that true luxury is not loud. It whispers. Every stitch, every drape, every thread is chosen with surgical precision for those who move through the world differently.</p>
+      <p class="about-text">Crafted in India. Worn by those who know their worth. We don't make clothes — we make armour for the ambitious.</p>
+      <div class="about-stats">
+        <div><div class="stat-num">500+</div><div class="stat-label">Pieces crafted</div></div>
+        <div><div class="stat-num">12</div><div class="stat-label">Collections</div></div>
+        <div><div class="stat-num">100%</div><div class="stat-label">Handcrafted</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="section-label">Get in Touch</div>
+  <div class="contact-inner">
+    <div class="reveal">
+      <h2 class="contact-title">Let's Talk<br><em>Fashion.</em></h2>
+      <p class="contact-sub">Ready to wear something extraordinary? Reach us on WhatsApp or drop a message. We respond within 24 hours.</p>
+      <a href="https://wa.me/919569723298?text=Hello%20Noir%20Veil%2C%20I%27d%20like%20to%20enquire%20about%20your%20collection" class="whatsapp-btn" target="_blank">
+        <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Chat on WhatsApp
+      </a>
+    </div>
+    <div class="reveal">
+      <form class="contact-form" onsubmit="handleSubmit(event)">
+        <div class="form-field"><input type="text" id="name" placeholder=" " required><label for="name">Your Name</label></div>
+        <div class="form-field"><input type="email" id="email" placeholder=" " required><label for="email">Email Address</label></div>
+        <div class="form-field"><textarea id="msg" placeholder=" " required></textarea><label for="msg">Your Message</label></div>
+        <button type="submit" class="form-submit">Send Message</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">NOIR VEIL</div>
+  <div class="footer-copy">&copy; 2025 Noir Veil. All rights reserved.</div>
+  <div class="footer-links"><a href="#">Instagram</a><a href="#">Privacy</a><a href="#">Terms</a></div>
+</footer>
+
+<script>
+const cursor=document.getElementById('cursor');
+const ring=document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+function animCursor(){
+  cursor.style.transform=`translate(${mx-4}px,${my-4}px)`;
+  rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;
+  ring.style.transform=`translate(${rx-16}px,${ry-16}px)`;
+  requestAnimationFrame(animCursor);
+}
+animCursor();
+
+const reveals=document.querySelectorAll('.reveal');
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.15});
+reveals.forEach(r=>obs.observe(r));
+
+function handleSubmit(e){
+  e.preventDefault();
+  const btn=e.target.querySelector('.form-submit');
+  btn.textContent='Message Sent';
+  btn.style.background='#1D9E75';
+  setTimeout(()=>{btn.textContent='Send Message';btn.style.background='';e.target.reset();},3000);
+}
+
+// WhatsApp order system
+const PHONE='919999999999'; // CHANGE THIS to client's WhatsApp number
+let currentProduct='';
+let selectedSize='';
+
+function openModal(name,tag,price,product){
+  currentProduct=name;
+  selectedSize='';
+  document.getElementById('modal-name').innerHTML=name.replace(/(\w+)\s(.+)/,'$1 <em>$2</em>');
+  document.getElementById('modal-tag').textContent=tag+' — '+price;
+  document.querySelectorAll('.size-btn').forEach(b=>b.classList.remove('active'));
+  updateWALink();
+  document.getElementById('modal').classList.add('open');
+}
+
+function closeModal(){
+  document.getElementById('modal').classList.remove('open');
+}
+
+function selectSize(btn){
+  document.querySelectorAll('.size-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  selectedSize=btn.textContent;
+  updateWALink();
+}
+
+function updateWALink(){
+  const size=selectedSize||'(size not selected)';
+  const msg=encodeURIComponent(`Hello Noir Veil! I want to order:\n\nProduct: ${currentProduct}\nSize: ${size}\n\nPlease confirm availability and send payment details.`);
+  document.getElementById('modal-wa-btn').href=`https://wa.me/${PHONE}?text=${msg}`;
+}
+
+document.getElementById('modal').addEventListener('click',function(e){
+  if(e.target===this)closeModal();
+});
+</script>
+</body>
+</html>
